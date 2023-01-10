@@ -1,0 +1,31 @@
+{
+  "expo": {
+    "name": "AplaVyavahar",
+    "slug": "AplaVyavahar",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/apla.png",
+    "splash": {
+      "image": "./assets/apla.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#402243"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.saurabh5.AplaVyavahar"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/apla.png",
+        "backgroundColor": "#000000"
+      },
+      "package": "com.saurabh5.AplaVyavahar"
+    }
+  }
+}
