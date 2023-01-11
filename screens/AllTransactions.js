@@ -11,45 +11,48 @@ import styled from 'styled-components/native';
 const AllTransactions = ({navigation}) => {
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: 'All Transactions',
+      title: 'All Entries',
     })
   }, [])
-  const [transactions, setTransactions] = useState([])
-  useEffect(() => {
-    const unsubscribe = db
-      .collection('expense')
-      .orderBy('timestamp', 'desc')
-      .onSnapshot((snapshot) =>
-        setTransactions(
-          snapshot.docs.map((doc) => ({
-            id: doc.id,
-            data: doc.data(),
-          }))
-        )
-      )
+  // const [transactions, setTransactions] = useState([])
+  // useEffect(() => {
+  //   const unsubscribe = db
+  //     .collection('expense')
+  //     .orderBy('timestamp', 'desc')
+  //     .onSnapshot((snapshot) =>
+  //       setTransactions(
+  //         snapshot.docs.map((doc) => ({
+  //           id: doc.id,
+  //           data: doc.data(),
+  //         }))
+  //       )
+  //     )
 
-    return unsubscribe
-  }, [])
-  const [filter, setFilter] = useState([])
-  useEffect(() => {
-    if (transactions) {
-      setFilter(
-        transactions.filter(
-          (transaction) => transaction.data.email === auth.currentUser.email
-        )
-      )
-    }
-  }, [transactions])
+  //   return unsubscribe
+  // }, [])
+  const [filter, setFilter] = useState([
+    {id: '1', data: 'Saurabh Powar', rollno: '191060053', time: '14:23'}, 
+    {id: '2', data: 'Saurabh Powar', rollno: '191060058', time: '12:40'}
+  ])
+  // useEffect(() => {
+  //   if (transactions) {
+  //     setFilter(
+  //       transactions.filter(
+  //         (transaction) => transaction.data.email === auth.currentUser.email
+  //       )
+  //     )
+  //   }
+  // }, [transactions])
 
   const MainContainer = styled.View`
-    background-color: 'black';
+    background-color: 'white';
     height: 100%;
     width: 100%;
     zIndex: -5;
   `;
 
   const UpperContainer = styled.View`
-    background-color: #F9D7FF;
+    background-color: #311E15;
     height: 20%;
     width: 100%;
     border-radius: 20;
@@ -66,11 +69,11 @@ const AllTransactions = ({navigation}) => {
           activeOpacity={0.5}
           onPress={() => navigation.navigate('Home')}
         >
-          <Ionicons name="chevron-back" size={25} color="black" />
+          <Ionicons name="chevron-back" size={25} color="#F3DACC" />
         </TouchableOpacity>
 
-        <Text style={{color: '#000000', fontWeight: 'bold', fontSize: 18, marginLeft: '22.5%' }}>
-          All Transactions
+        <Text style={{color: '#F3DACC', fontWeight: 'bold', fontSize: 24, flex:1, textAlign:'center', marginRight:'15%' }}>
+          All Entries
         </Text>
       </View>
       {filter?.length > 0 ? (
@@ -80,8 +83,9 @@ const AllTransactions = ({navigation}) => {
               <View key={info.id}>
                 <CustomListItem
                   info={info.data}
-                  navigation={navigation}
                   id={info.id}
+                  rollno = {info.rollno}
+                  time = {info.time}
                 />
               </View>
             ))}
@@ -89,8 +93,8 @@ const AllTransactions = ({navigation}) => {
         </SafeAreaView>
       ) : (
         <View style={styles.containerNull}>
-          <FontAwesome5 name='list-alt' size={24} color='#EF8A76' />
-          <Text h4 style={{color: '#4A2D5D'}}>
+          <FontAwesome5 name='list-alt' size={24} color='#8B6C5B' />
+          <Text h4 style={{color: '#8B6C5B'}}>
             No Transactions
           </Text>
         </View>
@@ -103,15 +107,16 @@ export default AllTransactions
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'black',
+    backgroundColor: 'white',
     padding: 0,
     marginTop: '10%',
     height: '100%',
-    flex: 1
+    flex: 1,
+    paddingTop: '5%'
   },
   containerNull: {
     flex: 1,
-    backgroundColor: 'black',
+    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
   },

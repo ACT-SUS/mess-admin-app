@@ -9,7 +9,7 @@ import { Avatar } from 'react-native-paper';
 export default function Details({ route, navigation }) {
   const { qrData } = route.params;
   const MainContainer = styled.View`
-  background-color: black;
+  background-color: white;
   height: 100%;
   width: 100%;
   top: -5%;
@@ -20,7 +20,6 @@ const UpperContainer = styled.View`
   background-color: #F9D7FF;
   height: 30%;
   width: 100%;
-  border-radius: 10;
 `;
 const [isKeyboardVisible, setKeyboardVisible] = useState(false);
 const [guests, setGuests] = useState(0);
@@ -44,26 +43,26 @@ const [guests, setGuests] = useState(0);
       <View 
         style={isKeyboardVisible ? {flexDirection: 'row', zIndex: 5, marginLeft: '10%', marginTop: '-180%'} : {flexDirection: 'row', zIndex: 5, marginLeft: '10%', marginTop: '-255%'}}>
       <TouchableOpacity
-          style={{marginTop: '15%'}}
+          style={{marginTop: '10%'}}
           activeOpacity={0.5}
           onPress={() => navigation.navigate('Home')}
         >
-          <Ionicons name="chevron-back" size={25} color="black" />
+          <Ionicons name="chevron-back" size={25} color="white" />
         </TouchableOpacity>
         
-        <Text style={{color: '#000000', fontWeight: 'bold', fontSize: 18, marginLeft: '22.5%', marginTop: '15%' }}>
+        <Text style={{color: '#FFFFFF', fontWeight: 'bold', fontSize: 20, marginLeft: '22.5%', marginTop: '10%' }}>
           Daily Entry
         </Text>
       </View>
-      <View style={{flex: 1, alignSelf: 'center',marginTop: '5%', maxHeight: 140}}>
-        <Avatar.Image size={120} source={require('../assets/male.png')} />
+      <View style={{flex: 1, alignSelf: 'center', marginTop: '5%', maxHeight: 125, borderWidth:2, borderRadius: 100, marginBottom: '4%', borderColor: '#311E15'}}>
+        <Avatar.Image size={120} source={require('../assets/person.jpg')} style={{}}/>
       </View>
       <KeyboardAvoidingView style={styles.container}>
-        <StatusBar style='dark' />
+        <StatusBar style='light' />
         <View style={styles.inputContainer}>
         <Text
           style={{
-            color: '#FAC7FF',
+            color: '#F3DACC',
             fontSize: 12,
             marginLeft: '5%',
             marginTop: '5%',
@@ -73,11 +72,11 @@ const [guests, setGuests] = useState(0);
         </Text>
         <Text
             style={styles.inputBox}
-          >{qrData.split(' ')[0] + ' ' +qrData.split(' ')[1]}
+        >{qrData.split(' ')[0] + ' ' +qrData.split(' ')[1]}
         </Text>
         <Text
           style={{
-            color: '#FAC7FF',
+            color: '#F3DACC',
             fontSize: 12,
             marginLeft: '5%',
             marginTop: '5%',
@@ -92,7 +91,7 @@ const [guests, setGuests] = useState(0);
         
         <Text
             style={{
-              color: '#FAC7FF',
+              color: '#F3DACC',
               fontSize: 12,
               marginLeft: '5%',
               marginTop: '2%',
@@ -101,9 +100,9 @@ const [guests, setGuests] = useState(0);
             NO. OF GUESTS (if any)
           </Text>
           <CounterInput
-            style={{marginTop: '5%', marginLeft: '25%'}}
+            style={{marginTop: '5%', marginLeft: '5%', width: '90%'}}
             horizontal={true}
-            increaseButtonBackgroundColor={'#222222'}
+            increaseButtonBackgroundColor={'#311E15'}
             decreaseButtonBackgroundColor={'#222222'}
             min={0}
             onChange={(counter) => {
@@ -112,7 +111,7 @@ const [guests, setGuests] = useState(0);
           />
           <Text
           style={{
-            color: '#FAC7FF',
+            color: '#F3DACC',
             fontSize: 12,
             marginLeft: '5%',
             marginTop: '5%',
@@ -142,8 +141,8 @@ const [guests, setGuests] = useState(0);
         <Button
           buttonStyle={styles.cancel}
           title='Cancel'
-          color='#FAC7FF'
           onPress={() => navigation.navigate('Home')}
+          color='#000000'
         />
       </View>
 
@@ -154,7 +153,7 @@ const [guests, setGuests] = useState(0);
 
 const styles = StyleSheet.create({
     mainContainer: {
-      marginTop: 100
+      marginTop: 100,
     },
     tinyLogo: {
       width: '50%',
@@ -166,7 +165,7 @@ const styles = StyleSheet.create({
       height: 58,
     },
     container: {
-      backgroundColor: '#402243',
+      backgroundColor: '#8B6C5B',
       width: '85%',
       padding: 10,
       borderRadius: 10,
@@ -184,8 +183,9 @@ const styles = StyleSheet.create({
       marginLeft: '-10%',
       marginTop: '-15%', 
       margin: 'auto',
-      borderRadius: 150,
-      zIndex: -1
+      borderRadius: 200,
+      zIndex: -2,
+      backgroundColor: '#311E15'
     },
     inputContainer: {
       width: '92%',
@@ -199,25 +199,25 @@ const styles = StyleSheet.create({
     },
     add: {
       width: '80%',
-      backgroundColor: '#402243',
+      backgroundColor: '#311E15',
       height: 50,
       borderRadius: 20,
       marginTop: '15%',
     },
     cancel: {
       width: '80%',
-      backgroundColor: '#000000',
+      backgroundColor: '#F3DACC',
       height: 50,
       borderRadius: 20,
-      borderColor: '#FAC7FF',
+      borderColor: '#F3DACC',
       borderWidth: 1,
-      marginTop: '15%'
+      marginTop: '15%',
     },
     inputBox: {
       height: 40,
       margin: 12,
       borderRadius: 8,
-      borderColor: 'white',
+      borderColor: '#F3DACC',
       color: 'white',
       borderWidth: 1,
       padding: 10,

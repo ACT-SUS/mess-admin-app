@@ -32,7 +32,10 @@ const HomeScreen = ({navigation}) => {
   const [confirm, setConfirm] = useState(false)
   const [reset, setReset] = useState(false)
 
-  const [filter, setFilter] = useState([{id: '1', data: 'Saurabh Powar', rollno: '191060053'}, {id: '2', data: 'Saurabh Powar', rollno: '191060053'}])
+  const [filter, setFilter] = useState([
+    {id: '1', data: 'Saurabh Powar', rollno: '191060053', time: '14:23'}, 
+    {id: '2', data: 'Saurabh Powar', rollno: '191060058', time: '12:40'}
+  ])
 
   const [date, setDate] = useState(null);
 
@@ -70,7 +73,7 @@ const HomeScreen = ({navigation}) => {
                 <View style={{flexDirection: 'column', flex:1}}>
                   <Text style={{fontSize: 18, fontWeight: 'bold', marginTop: '2%', color: '#F3DACC'}}>Welcome 🙏️,</Text>
                     <Text style={{fontSize: 28, fontWeight: 'bold', color: '#FFFFFF'}}>
-                      Mess Admin{/* {auth.currentUser.displayName} */}
+                      Mess Admin
                     </Text>
                 </View>
                 <Image style={{ resizeMode: 'contain', height: 120, width:120, alignSelf:'flex-end', flex:1, marginRight: '10%', marginTop: '-6%'}} source={require('../assets/admin.png') }></Image>
@@ -101,12 +104,9 @@ const HomeScreen = ({navigation}) => {
             </View>
           </View>
           <View style={styles.recentTitle}>
-            <Text h5 style={{color: '#000000'}}>
+            <Text  style={{color: '#000000', fontSize: 18}}>
               Recent Entries : 
             </Text>
-            {/* <View style={{justifyContent: 'flex-end'}}>
-              <Entypo name='home' size={25} color='#FFFFFF' />
-            </View> */}
           </View>
         {filter?.length > 0 ? (
           <SafeAreaView style={styles.containerScroll}>
@@ -115,9 +115,9 @@ const HomeScreen = ({navigation}) => {
               <View key={info.id}>
                 <CustomListItem
                   info={info.data}
-                  navigation={navigation}
                   id={info.id}
                   rollno = {info.rollno}
+                  time = {info.time}
                 />
               </View>
             ))}
@@ -139,7 +139,7 @@ const HomeScreen = ({navigation}) => {
             onPress={() => navigation.navigate('Home')}
           >
             {/* <Ionicons name='ios-home' size={30} color='#FFFFFF' /> */}
-            <AntDesign name='home' size={30} color='#FFFFFF' />
+            <Ionicons name='ios-home-outline' size={30} color='#FFFFFF' />
           </TouchableOpacity>
           <TouchableOpacity
             style={{marginRight: '-10%'}}
@@ -175,14 +175,11 @@ const styles = StyleSheet.create({
   },
 
   fullName: {
-    // flexDirection: 'row',
     flex: 1,
     marginTop: '20%',
     marginLeft: '18%'
-    },
-  // dataTime: {
+  },
 
-  // }
   upper: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
@@ -193,6 +190,7 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     backgroundColor: '#311E15'
   },
+
   card: {
     backgroundColor: '#F3DACC',
     width: '85%',
@@ -206,12 +204,13 @@ const styles = StyleSheet.create({
     marginLeft: '7.5%',
     marginTop: '-15%'
   },
+
   cardTop: {
-    // backgroundColor: 'blue',
     marginBottom: 20,
     alignItems: 'center',
     margin: '4%'
   },
+
   cardBottom: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -219,22 +218,28 @@ const styles = StyleSheet.create({
     marginLeft: '5%',
     marginBottom: '5%'
   },
+
   cardBottomSame: {
     flexDirection: 'row',
   },
+
   recentTitle: {
-    margin: '10%'
+    marginLeft: '10%',
+    marginTop: '8%',
   },
+
   recentTransactions: {
     backgroundColor: 'white',
     width: '100%'
   },
+
   seeAll: {
     fontWeight: 'bold',
     color: '#ECC2FF',
     fontSize: 14,
     marginLeft: '30%'
   },
+
   addButton: {
     position: 'absolute',
     bottom: 0,
@@ -256,6 +261,7 @@ const styles = StyleSheet.create({
     elevation: 24,
     backgroundColor: '#311E15'
   },
+
   plusButton: {
     backgroundColor: '#8B6C5B',
     padding: 20,
@@ -275,16 +281,19 @@ const styles = StyleSheet.create({
     elevation: 50,
     marginBottom: 5
   },
+
   containerNull: {
     alignItems: 'center',
     justifyContent: 'flex-start',
     flex: 1
   },
+
   centeredView: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
+
   modalView: {
     margin: 20,
     backgroundColor: 'white',
@@ -302,6 +311,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 10,
   },
+
   no: {
     width: '80%',
     backgroundColor: 'green',
@@ -309,6 +319,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     marginTop: '15%',
   },
+
   yes: {
     width: '80%',
     backgroundColor: 'red',
@@ -316,6 +327,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     marginTop: '15%',
   },
+  
   containerScroll: {
     backgroundColor: 'white',
     padding: 0,

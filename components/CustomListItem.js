@@ -1,19 +1,15 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {StyleSheet, View} from 'react-native'
 import {ListItem, Text, Divider} from 'react-native-elements'
-import {MaterialIcons} from '@expo/vector-icons'
-import ModalActions from './ModalActions'
 
-const CustomListItem = ({info, navigation, id, rollno}) => {
-  const [modalVisible, setModalVisible] = useState(false)
-
+const CustomListItem = ({info, id, rollno, time}) => {
   return (
     <>
       <View>
-        <ListItem onPress={() => setModalVisible(true)} containerStyle={{backgroundColor:"white", borderRadius: 20, width: '90%', marginLeft: '5%', marginBottom: '-2%'}}>
+        <ListItem containerStyle={styles.container}>
           <ListItem.Content>
             <ListItem.Title
-              style={{fontWeight: 'bold', textTransform: 'capitalize', color: 'black'}}
+              style={{fontWeight: 'bold', fontSize: 18, color: '#311E15'}}
             >
               {info}
             </ListItem.Title>
@@ -23,18 +19,12 @@ const CustomListItem = ({info, navigation, id, rollno}) => {
           </ListItem.Content>
           <View> 
             <Text style={styles.right}>
-              2PM
+              {time}
             </Text>
           </View>
         </ListItem>
-        {/* <Divider style={{backgroundColor: 'lightgrey'}} /> */}
+        <Divider style={{backgroundColor: 'lightgrey'}} />
       </View>
-      {/* <ModalActions
-        modalVisible={modalVisible}
-        setModalVisible={setModalVisible}
-        navigation={navigation}
-        id={id}
-      /> */}
     </>
   )
 }
@@ -42,23 +32,15 @@ const CustomListItem = ({info, navigation, id, rollno}) => {
 export default CustomListItem
 
 const styles = StyleSheet.create({
-  left: {
-    backgroundColor: '#533461',
-    borderRadius: 8,
-    padding: 10,
-  },
-
-  income: {
-    backgroundColor: '#61ACB8',
-    borderRadius: 8,
-    padding: 10,
+  container:{
+    backgroundColor:"white", 
+    borderRadius: 20, 
+    width: '90%', 
+    marginLeft: '5%', 
+    marginBottom: '-2%'
   },
   right: {
     fontWeight: 'bold',
-    color: 'red',
-  },
-  rightIncome: {
-    fontWeight: 'bold',
-    color: 'green',
+    color: '#311E15',
   },
 })
