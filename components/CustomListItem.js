@@ -4,53 +4,37 @@ import {ListItem, Text, Divider} from 'react-native-elements'
 import {MaterialIcons} from '@expo/vector-icons'
 import ModalActions from './ModalActions'
 
-const CustomListItem = ({info, navigation, id}) => {
+const CustomListItem = ({info, navigation, id, rollno}) => {
   const [modalVisible, setModalVisible] = useState(false)
 
   return (
     <>
       <View>
-        <ListItem onPress={() => setModalVisible(true)} containerStyle={{backgroundColor:"black", borderRadius: 20, width: '90%', marginLeft: '5%', marginBottom: '-2%'}}>
-          {info.type === 'expense' ? (
-            <View style={styles.left}>
-              <MaterialIcons name='fastfood' size={24} color='white' />
-            </View>
-          ) : (
-            <View style={styles.income}>
-              <MaterialIcons name='comment-bank' size={24} color='white' />
-            </View>
-          )}
+        <ListItem onPress={() => setModalVisible(true)} containerStyle={{backgroundColor:"white", borderRadius: 20, width: '90%', marginLeft: '5%', marginBottom: '-2%'}}>
           <ListItem.Content>
             <ListItem.Title
-              style={{fontWeight: 'bold', textTransform: 'capitalize', color: 'white'}}
+              style={{fontWeight: 'bold', textTransform: 'capitalize', color: 'black'}}
             >
-              {info?.text}
+              {info}
             </ListItem.Title>
-            <ListItem.Subtitle style={{color: 'white'}}>
-              {new Date(info?.timestamp?.toDate()).toUTCString().substring(0,25)}
-              {/* {info?.userDate} */}
+            <ListItem.Subtitle style={{color: '#222222'}}>
+              {rollno}
             </ListItem.Subtitle>
           </ListItem.Content>
-          <View>
-            {info.type === 'expense' ? (
-              <Text style={styles.right}>
-                ₹ -{Number(info?.price)?.toFixed(2)}
-              </Text>
-            ) : (
-              <Text style={styles.rightIncome}>
-                ₹ {Number(info?.price)?.toFixed(2)}
-              </Text>
-            )}
+          <View> 
+            <Text style={styles.right}>
+              2PM
+            </Text>
           </View>
         </ListItem>
         {/* <Divider style={{backgroundColor: 'lightgrey'}} /> */}
       </View>
-      <ModalActions
+      {/* <ModalActions
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
         navigation={navigation}
         id={id}
-      />
+      /> */}
     </>
   )
 }

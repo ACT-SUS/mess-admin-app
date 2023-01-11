@@ -32,16 +32,28 @@ const HomeScreen = ({navigation}) => {
   const [confirm, setConfirm] = useState(false)
   const [reset, setReset] = useState(false)
 
-  const [filter, setFilter] = useState([])
+  const [filter, setFilter] = useState([{id: '1', data: 'Saurabh Powar', rollno: '191060053'}, {id: '2', data: 'Saurabh Powar', rollno: '191060053'}])
+
+  const [date, setDate] = useState(null);
+
+  let today = new Date();
+
+  const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
+
+  useEffect(() => {
+    let date = today.getDate()+' '+(months[today.getMonth()+1])+' '+today.getFullYear();
+    setDate(date);
+  }, []);
 
   const MainContainer = styled.View`
-    background-color: black;
+    background-color: white;
     height: 100%;
     width: 100%;
   `;
 
   const UpperContainer = styled.View`
-    background-color: #F9D7FF;
+    background-color: red;
     height: 30%;
     width: 100%;
     border-radius: 10;
@@ -50,51 +62,52 @@ const HomeScreen = ({navigation}) => {
   return (
     <>
       {/* <View style={styles.container}> */}
-        <StatusBar style='dark' />
+        <StatusBar style='light' />
         <MainContainer>
           <UpperContainer style={styles.upper}>
             <View style={styles.fullName}>
-                <View style={{flexDirection: 'column'}}>
-                  <Text style={{fontSize: 18, fontWeight: 'bold', marginTop: '2%', color: '#DBC8DA'}}>Welcome 🙏️,</Text>
-                    <Text style={{fontSize: 30, fontWeight: 'bold', color: '#FFFFFF'}}>
-                      Mess Admin {/* {auth.currentUser.displayName} */}
+              <View style={{flexDirection: 'row'}}>
+                <View style={{flexDirection: 'column', flex:1}}>
+                  <Text style={{fontSize: 18, fontWeight: 'bold', marginTop: '2%', color: '#F3DACC'}}>Welcome 🙏️,</Text>
+                    <Text style={{fontSize: 28, fontWeight: 'bold', color: '#FFFFFF'}}>
+                      Mess Admin{/* {auth.currentUser.displayName} */}
                     </Text>
                 </View>
+                <Image style={{ resizeMode: 'contain', height: 120, width:120, alignSelf:'flex-end', flex:1, marginRight: '10%', marginTop: '-6%'}} source={require('../assets/admin.png') }></Image>
+              </View>
             </View>
-
           </UpperContainer>
-        <View style={styles.card}>
-          <View style={styles.cardTop}>
-            <View style={{flexDirection: 'row', marginBottom: '4%'}}>
-              <Text h5 style={{color: '#000000'}}>
-                Wednesday
-              </Text>
-              <Text h5 style={{marginLeft: '5%', color: '#000000'}}>
-                Jan 11th 2023
+          <View style={styles.card}>
+            <View style={styles.cardTop}>
+              <View style={{flexDirection: 'row', marginBottom: '5%'}}>
+                <Text style={{color: '#311E15', fontSize: 20}}>
+                  {days[today.getDay()]}
+                </Text>
+                <Text style={{marginLeft: '10%', color: '#311E15', fontSize: 20}}>
+                  {date}
+                </Text>
+              </View>
+              <View style={{flexDirection: 'row'}}>
+                <Text style={{color: '#000000', fontWeight: '700', fontSize: 18 }}>
+                  Total Entries
+                </Text>
+                <Text style={{marginLeft: 5, color: '#000000', fontSize: 20 }}>
+                  ^
+                </Text>
+              </View>
+              <Text h3 style={{color: '#000000'}}>
+                {totalBalance}
               </Text>
             </View>
-            <View style={{flexDirection: 'row'}}>
-              <Text style={{color: '#000000', fontWeight: '700', fontSize: 14 }}>
-                Total Entries
-              </Text>
-              <Text style={{marginLeft: 5, color: '#000000', fontSize: 20 }}>
-                ^
-              </Text>
-            </View>
-            <Text h3 style={{color: '#000000'}}>
-              {totalBalance}
-            </Text>
           </View>
-        </View>
-
-        <View style={styles.recentTitle}>
-          <Text h5 style={{color: '#FFFFFF'}}>
-            Recent Entries : 
-          </Text>
-          {/* <View style={{justifyContent: 'flex-end'}}>
-            <Entypo name='home' size={25} color='#FFFFFF' />
-          </View> */}
-        </View>
+          <View style={styles.recentTitle}>
+            <Text h5 style={{color: '#000000'}}>
+              Recent Entries : 
+            </Text>
+            {/* <View style={{justifyContent: 'flex-end'}}>
+              <Entypo name='home' size={25} color='#FFFFFF' />
+            </View> */}
+          </View>
         {filter?.length > 0 ? (
           <SafeAreaView style={styles.containerScroll}>
           <ScrollView>
@@ -104,6 +117,7 @@ const HomeScreen = ({navigation}) => {
                   info={info.data}
                   navigation={navigation}
                   id={info.id}
+                  rollno = {info.rollno}
                 />
               </View>
             ))}
@@ -111,8 +125,8 @@ const HomeScreen = ({navigation}) => {
         </SafeAreaView>
         ) : (
           <View style={styles.containerNull}>
-          <Ionicons name='ios-wallet' size={24} color='#FFFFFF' />
-            <Text h5 style={{color: '#FFFFFF'}}>
+          <Ionicons name='ios-wallet' size={24} color='#000000' />
+            <Text h5 style={{color: '#000000'}}>
               No Entries
             </Text>
           </View>
@@ -135,7 +149,7 @@ const HomeScreen = ({navigation}) => {
             <Feather name='list' size={30} color='#FFFFFF' />
           </TouchableOpacity>
         </View>
-        <View style={{ width: 100, height: 100, borderRadius: 50, backgroundColor: 'black', alignSelf: 'center', top: '85%', position:'absolute', elevation: 25}}>
+        <View style={{ width: 100, height: 100, borderRadius: 50, backgroundColor: 'white', alignSelf: 'center', top: '85%', position:'absolute'}}>
           <TouchableOpacity
               style={styles.plusButton}
               onPress={() => navigation.navigate('QRScan')}
@@ -159,6 +173,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     padding: 10,
   },
+
   fullName: {
     // flexDirection: 'row',
     flex: 1,
@@ -176,10 +191,10 @@ const styles = StyleSheet.create({
     marginTop: '-5%', 
     margin: 'auto',
     borderRadius: 100,
-    backgroundColor: '#443d45'
+    backgroundColor: '#311E15'
   },
   card: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#F3DACC',
     width: '85%',
     padding: 10,
     borderRadius: 10,
@@ -239,10 +254,10 @@ const styles = StyleSheet.create({
     shadowRadius: 16.0,
 
     elevation: 24,
-    backgroundColor: '#222222'
+    backgroundColor: '#311E15'
   },
   plusButton: {
-    backgroundColor: '#444444',
+    backgroundColor: '#8B6C5B',
     padding: 20,
     height: 75,
     width: 75,
@@ -302,7 +317,7 @@ const styles = StyleSheet.create({
     marginTop: '15%',
   },
   containerScroll: {
-    backgroundColor: 'black',
+    backgroundColor: 'white',
     padding: 0,
     height: '100%',
     flex: 1
