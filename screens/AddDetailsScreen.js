@@ -23,6 +23,7 @@ const UpperContainer = styled.View`
 `;
 const [isKeyboardVisible, setKeyboardVisible] = useState(false);
 const [guests, setGuests] = useState(0);
+const [amount, setAmount] = useState(0);
 
   return (
     // <View >
@@ -88,7 +89,6 @@ const [guests, setGuests] = useState(0);
             style={styles.inputBox}
           >{qrData.split(' ')[2]}
         </Text>
-        
         <Text
             style={{
               color: '#F3DACC',
@@ -126,7 +126,6 @@ const [guests, setGuests] = useState(0);
             placeholderTextColor={'#FFFFFF'}
             value={0}
             defaultValue={0}
-
             onChangeText={(text) => setAmount(text)}
           />
         </View>
@@ -142,11 +141,10 @@ const [guests, setGuests] = useState(0);
           buttonStyle={styles.cancel}
           title='Cancel'
           onPress={() => navigation.navigate('Home')}
-          color='#000000'
+          titleStyle={{ color: 'black' }}
+          type="outline"
         />
       </View>
-
-
     </>
   );
 }
@@ -174,7 +172,7 @@ const styles = StyleSheet.create({
       shadowOpacity: 0.20,
       shadowRadius: 2,
       elevation: 5,
-      marginLeft: '7.5%'
+      marginLeft: '7.5%',
     },
     upper: {
       flexDirection: 'row',
@@ -205,12 +203,13 @@ const styles = StyleSheet.create({
       marginTop: '15%',
     },
     cancel: {
+      color: '#000000',
       width: '80%',
-      backgroundColor: '#F3DACC',
+      // backgroundColor: '#F3DACC',
       height: 50,
       borderRadius: 20,
       borderColor: '#F3DACC',
-      borderWidth: 1,
+      borderWidth: 2,
       marginTop: '15%',
     },
     inputBox: {

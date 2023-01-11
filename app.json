@@ -5,11 +5,6 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/apla.png",
-    "splash": {
-      "image": "./assets/apla.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#402243"
-    },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
