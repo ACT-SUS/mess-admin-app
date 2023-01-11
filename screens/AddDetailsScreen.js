@@ -2,8 +2,9 @@ import React, {useEffect, useState} from 'react'
 import { StyleSheet, View, TouchableOpacity, KeyboardAvoidingView, StatusBar, TextInput, Image, Keyboard, Modal } from 'react-native';
 import styled from 'styled-components/native';
 import {Feather, Ionicons} from '@expo/vector-icons'
-import {Text, Button, Avatar} from 'react-native-elements'
+import {Text, Button} from 'react-native-elements'
 import CounterInput from "react-native-counter-input";
+import { Avatar } from 'react-native-paper';
 
 export default function Details({ route, navigation }) {
   const { qrData } = route.params;
@@ -54,15 +55,8 @@ const [guests, setGuests] = useState(0);
           Daily Entry
         </Text>
       </View>
-      <View style={{marginLeft: '30%', marginTop: '5%'}}>
-        <Avatar
-          rounded
-          size="xlarge"
-          source={{
-            uri:
-              'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-          }}
-        />
+      <View style={{flex: 1, alignSelf: 'center',marginTop: '5%', maxHeight: 140}}>
+        <Avatar.Image size={120} source={require('../assets/male.png')} />
       </View>
       <KeyboardAvoidingView style={styles.container}>
         <StatusBar style='dark' />
@@ -181,12 +175,7 @@ const styles = StyleSheet.create({
       shadowOpacity: 0.20,
       shadowRadius: 2,
       elevation: 5,
-      marginLeft: '7.5%',
-      marginTop: '5%'
-      // flex: 1,
-      // alignItems: 'center',
-      // justifyContent: 'center',
-      // padding: 10,
+      marginLeft: '7.5%'
     },
     upper: {
       flexDirection: 'row',
