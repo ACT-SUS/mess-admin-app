@@ -4,7 +4,12 @@
     "slug": "VJTIMess",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/apla.png",
+    "icon": "./assets/mess_admin.png",
+    "splash": {
+      "image": "./assets/mess_admin.png",
+      "resizeMode": "contain",
+      "backgroundColor": "white"
+    },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -17,7 +22,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/apla.png",
+        "foregroundImage": "./assets/mess_admin.png",
         "backgroundColor": "#000000"
       },
       "package": "com.saurabh5.VJTIMess"
