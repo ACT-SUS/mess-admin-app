@@ -5,8 +5,8 @@ import {Text, Button} from 'react-native-elements'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import format from 'date-fns/format'
 import {Picker} from '@react-native-picker/picker'
-import {db} from '../firebase'
-import firebase from 'firebase'
+// import {db} from '../firebase'
+// import firebase from 'firebase'
 import styled from 'styled-components/native';
 import parse from 'date-fns/parse'
 import {Feather, Ionicons} from '@expo/vector-icons'
@@ -49,7 +49,7 @@ const UpdateScreen = ({route, navigation}) => {
           price: amount,
           date: selDate,
           type: selectedType,
-          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+          // timestamp: firebase.firestore.FieldValue.serverTimestamp(),
           userDate: result,
         })
         .then(() => clearInputFields())

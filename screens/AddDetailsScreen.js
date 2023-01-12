@@ -13,7 +13,6 @@ export default function Details({ route, navigation }) {
   height: 100%;
   width: 100%;
   top: -5%;
-  zIndex: -5;
 `;
 
 const UpperContainer = styled.View`
@@ -37,121 +36,131 @@ const [amount, setAmount] = useState(0);
     //         {/* <Button title='Scan'/> */}
     //     </View>
     // </View>
-    <>
+    <View>
       <UpperContainer style={styles.upper}>
+        <View style={{flexDirection: 'row', marginTop: '40%', maxHeight: 25, marginLeft: '20%', marginRight: '20%', marginBottom: '5%'}}>
+          <TouchableOpacity
+            activeOpacity={0.5}
+            onPress={() => navigation.navigate('Home')}
+          >
+            <Ionicons name="chevron-back" size={25} color="#F3DACC" />
+          </TouchableOpacity>
+          <Text style={{color: '#F3DACC', fontWeight: 'bold', fontSize: 20, marginLeft: '22.5%'}}>
+            Daily Entry
+          </Text>
+        </View>
+        <View style={{zIndex: 5, alignSelf: 'center', height:125, width: 125, borderWidth:2, borderRadius: 100, marginBottom: '4%', borderColor: '#311E15'}}>
+          <Avatar.Image size={120} source={require('../assets/person.jpg')}/>
+        </View>
       </UpperContainer>
-      <MainContainer></MainContainer>
-      <View 
-        style={isKeyboardVisible ? {flexDirection: 'row', zIndex: 5, marginLeft: '10%', marginTop: '-180%'} : {flexDirection: 'row', zIndex: 5, marginLeft: '10%', marginTop: '-255%'}}>
-      <TouchableOpacity
-          style={{marginTop: '10%'}}
-          activeOpacity={0.5}
-          onPress={() => navigation.navigate('Home')}
-        >
-          <Ionicons name="chevron-back" size={25} color="white" />
-        </TouchableOpacity>
-        
-        <Text style={{color: '#FFFFFF', fontWeight: 'bold', fontSize: 20, marginLeft: '22.5%', marginTop: '10%' }}>
-          Daily Entry
-        </Text>
-      </View>
-      <View style={{flex: 1, alignSelf: 'center', marginTop: '5%', maxHeight: 125, borderWidth:2, borderRadius: 100, marginBottom: '4%', borderColor: '#311E15'}}>
-        <Avatar.Image size={120} source={require('../assets/person.jpg')} style={{}}/>
-      </View>
-      <KeyboardAvoidingView style={styles.container}>
-        <StatusBar style='light' />
-        <View style={styles.inputContainer}>
-        <Text
-          style={{
-            color: '#F3DACC',
-            fontSize: 12,
-            marginLeft: '5%',
-            marginTop: '5%',
-          }}
-        >
-          NAME
-        </Text>
-        <Text
-            style={styles.inputBox}
-        >{qrData.split(' ')[0] + ' ' +qrData.split(' ')[1]}
-        </Text>
-        <Text
-          style={{
-            color: '#F3DACC',
-            fontSize: 12,
-            marginLeft: '5%',
-            marginTop: '5%',
-          }}
-        >
-          ROLL NO.
-        </Text>
-        <Text
-            style={styles.inputBox}
-          >{qrData.split(' ')[2]}
-        </Text>
-        <Text
+      <MainContainer style={styles.mainContainer}>
+        <KeyboardAvoidingView style={styles.container}>
+          <StatusBar style='light' />
+          <View style={styles.inputContainer}>
+          <Text
             style={{
               color: '#F3DACC',
               fontSize: 12,
               marginLeft: '5%',
-              marginTop: '2%',
+              marginTop: '5%',
             }}
           >
-            NO. OF GUESTS (if any)
+            NAME
           </Text>
-          <CounterInput
-            style={{marginTop: '5%', marginLeft: '5%', width: '90%'}}
-            horizontal={true}
-            increaseButtonBackgroundColor={'#311E15'}
-            decreaseButtonBackgroundColor={'#222222'}
-            min={0}
-            onChange={(counter) => {
-              setGuests(counter);
-            }}
-          />
           <Text
-          style={{
-            color: '#F3DACC',
-            fontSize: 12,
-            marginLeft: '5%',
-            marginTop: '5%',
-          }}
-        >
-          EXTRA FOOD (if any)
-        </Text>
-          <TextInput
-            style={styles.inputBox}
-            keyboardType='numeric'
-            placeholder='0'
-            placeholderTextColor={'#FFFFFF'}
-            value={0}
-            defaultValue={0}
-            onChangeText={(text) => setAmount(text)}
+              style={styles.inputBox}
+          >{qrData.split(' ')[0] + ' ' +qrData.split(' ')[1]}
+          </Text>
+          <Text
+            style={{
+              color: '#F3DACC',
+              fontSize: 12,
+              marginLeft: '5%',
+              marginTop: '5%',
+            }}
+          >
+            ROLL NO.
+          </Text>
+          <Text
+              style={styles.inputBox}
+            >{qrData.split(' ')[2]}
+          </Text>
+          <Text
+              style={{
+                color: '#F3DACC',
+                fontSize: 12,
+                marginLeft: '5%',
+                marginTop: '2%',
+              }}
+            >
+              NO. OF GUESTS (if any)
+            </Text>
+            <CounterInput
+              style={{marginTop: '5%', marginLeft: '5%', width: '90%'}}
+              horizontal={true}
+              increaseButtonBackgroundColor={'#311E15'}
+              decreaseButtonBackgroundColor={'#222222'}
+              min={0}
+              onChange={(counter) => {
+                setGuests(counter);
+              }}
+            />
+            <Text
+            style={{
+              color: '#F3DACC',
+              fontSize: 12,
+              marginLeft: '5%',
+              marginTop: '5%',
+            }}
+          >
+            EXTRA FOOD (if any)
+          </Text>
+            <TextInput
+              style={styles.inputBox}
+              keyboardType='numeric'
+              placeholder='0'
+              placeholderTextColor={'#FFFFFF'}
+              value={0}
+              defaultValue={0}
+              onChangeText={(text) => setAmount(text)}
+            />
+          </View>
+        </KeyboardAvoidingView>
+        <View style={{flexDirection: 'row', marginLeft: '10%', marginTop: '-2%' ,marginBottom: '2%'}}>
+          <Button
+            buttonStyle={styles.add}
+            title='Add'
+            onPress={() => {}}
+            // loading={submitLoading}
+          />
+          <Button
+            buttonStyle={styles.cancel}
+            title='Cancel'
+            onPress={() => navigation.navigate('Home')}
+            titleStyle={{ color: 'black' }}
+            type="outline"
           />
         </View>
-      </KeyboardAvoidingView>
-      <View style={{flexDirection: 'row', marginLeft: '10%', marginTop: '-2%' ,marginBottom: '2%'}}>
-        <Button
-          buttonStyle={styles.add}
-          title='Add'
-          onPress={() => {}}
-          // loading={submitLoading}
-        />
-        <Button
-          buttonStyle={styles.cancel}
-          title='Cancel'
-          onPress={() => navigation.navigate('Home')}
-          titleStyle={{ color: 'black' }}
-          type="outline"
-        />
-      </View>
-    </>
+      </MainContainer>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-    mainContainer: {
-      marginTop: 100,
+  upper: {
+    flexDirection: 'column',
+    // justifyContent: 'center',
+    width: '120%',
+    marginLeft: '-10%',
+    marginTop: '-30%', 
+    margin: 'auto',
+    borderRadius: 200,
+    zIndex: 1,
+    backgroundColor: '#311E15'
+  },  
+  mainContainer: {
+      zIndex: -10,
+      top: '10%'
     },
     tinyLogo: {
       width: '50%',
@@ -174,17 +183,6 @@ const styles = StyleSheet.create({
       shadowRadius: 2,
       elevation: 5,
       marginLeft: '7.5%',
-    },
-    upper: {
-      flexDirection: 'row',
-      justifyContent: 'space-evenly',
-      width: '120%',
-      marginLeft: '-10%',
-      marginTop: '-15%', 
-      margin: 'auto',
-      borderRadius: 200,
-      zIndex: -2,
-      backgroundColor: '#311E15'
     },
     inputContainer: {
       width: '92%',

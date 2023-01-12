@@ -11,7 +11,7 @@ import {
 } from 'react-native'
 import {Button} from 'react-native-elements'
 import {Entypo} from '@expo/vector-icons'
-import {db} from '../firebase'
+// import {db} from '../firebase'
 
 const ModalActions = ({modalVisible, setModalVisible, navigation, id}) => {
   const [deleteModal , setDeleteModal] = useState(false);

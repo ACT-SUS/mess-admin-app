@@ -1,7 +1,6 @@
 import React, {useEffect, useLayoutEffect, useState} from 'react'
 import {StyleSheet, View, TouchableOpacity, Modal, Image, SafeAreaView, ScrollView} from 'react-native'
 import {Text, Button} from 'react-native-elements'
-import {auth, db} from '../firebase'
 import {StatusBar} from 'expo-status-bar'
 import {Feather, MaterialCommunityIcons, Ionicons} from '@expo/vector-icons'
 import CustomListItem from '../components/CustomListItem'
@@ -10,23 +9,23 @@ import styled from 'styled-components/native';
 
 const HomeScreen = ({navigation}) => {
   
-  // transactions
-  const [transactions, setTransactions] = useState([])
-  useEffect(() => {
-    const unsubscribe = db
-      .collection('expense')
-      .orderBy('timestamp', 'desc')
-      .onSnapshot(
-        (snapshot) =>
-          setTransactions(
-            snapshot.docs.map((doc) => ({
-              id: doc.id,
-              data: doc.data(),
-            }))
-          ) 
-      )
-    return unsubscribe
-  }, [])
+  // // transactions
+  // const [transactions, setTransactions] = useState([])
+  // useEffect(() => {
+  //   const unsubscribe = db
+  //     .collection('expense')
+  //     .orderBy('timestamp', 'desc')
+  //     .onSnapshot(
+  //       (snapshot) =>
+  //         setTransactions(
+  //           snapshot.docs.map((doc) => ({
+  //             id: doc.id,
+  //             data: doc.data(),
+  //           }))
+  //         ) 
+  //     )
+  //   return unsubscribe
+  // }, [])
 
   const [totalBalance, setTotalBalance] = useState(0)
   const [confirm, setConfirm] = useState(false)
@@ -76,7 +75,18 @@ const HomeScreen = ({navigation}) => {
                       Mess Admin
                     </Text>
                 </View>
-                <Image style={{ resizeMode: 'contain', height: 120, width:120, alignSelf:'flex-end', flex:1, marginRight: '10%', marginTop: '-6%'}} source={require('../assets/admin.png') }></Image>
+                <Image 
+                  style={{ 
+                    resizeMode: 'contain', 
+                    height: 120, 
+                    width:120, 
+                    alignSelf:'flex-end', 
+                    flex:1, 
+                    marginRight: '10%', 
+                    marginTop: '-6%'
+                  }} 
+                  source={require('../assets/admin.png') }>
+                </Image>
               </View>
             </View>
           </UpperContainer>
@@ -160,7 +170,6 @@ const HomeScreen = ({navigation}) => {
               activeOpacity={0.5}
             >
             <MaterialCommunityIcons name="qrcode-scan" size={32} color="#FFFFFF" />
-            {/* <Ionicons name='md-qr-code-outline' size={32} color='#FFFFFF' /> */}
             {/* <Ionicons name='md-qr-code-outline' size={32} color='#FFFFFF' /> */}
           </TouchableOpacity>
         </View>

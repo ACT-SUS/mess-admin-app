@@ -3,7 +3,7 @@ import {ScrollView, StyleSheet, View, TouchableOpacity} from 'react-native'
 import SafeAreaView from 'react-native-safe-area-view'
 // import {SafeAreaView} from 'react-native-safe-area-context'
 import CustomListItem from '../components/CustomListItem'
-import {db, auth} from '../firebase'
+// import {db, auth} from '../firebase'
 import {Text} from 'react-native-elements'
 import {FontAwesome5, Ionicons} from '@expo/vector-icons'
 import styled from 'styled-components/native';
