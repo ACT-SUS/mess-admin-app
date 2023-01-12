@@ -1,5 +1,5 @@
-import React, { useState, useEffect, Suspense } from 'react';
-import { Text, View, StyleSheet, Button, Modal } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Text, View, StyleSheet, ActivityIndicator, Modal } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import { useNavigation } from '@react-navigation/native';
 
@@ -38,11 +38,12 @@ export default function QRScanner() {
 
   return (
     <View style={styles.container}>
-      <Text style={{marginTop: '25%', alignSelf: 'center', color: '#311E15', fontSize: 20}} color='black'> PLease Wait! </Text>
-      <Text style={{marginTop: '5%', alignSelf: 'center', color: '#311E15', fontSize: 20}} color='black'> Scanning the QR Code . . . </Text>
+      <Text style={{alignSelf: 'center', color: '#311E15', fontSize: 18}} color='#F3DACC'> Please Wait! </Text>
+      <Text style={{alignSelf: 'center', color: '#311E15', fontSize: 20, fontWeight: '500', marginBottom: '4%'}} color='#F3DACC'> Scanning the QR Code . . . </Text>
+      <ActivityIndicator size="large" color="#8B6C5B" style={{marginBottom: '8%'}}/>
       <BarCodeScanner
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-        style={{height: '70%', width: '75%', flex: 1, left: '12.5%', marginTop: '-20%'}}
+        style={{height: '50%', width: '70%', left: '15%'}}
       />
       
       <Modal

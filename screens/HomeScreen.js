@@ -3,7 +3,7 @@ import {StyleSheet, View, TouchableOpacity, Modal, Image, SafeAreaView, ScrollVi
 import {Text, Button} from 'react-native-elements'
 import {auth, db} from '../firebase'
 import {StatusBar} from 'expo-status-bar'
-import {Feather, FontAwesome5, Entypo, Ionicons, AntDesign} from '@expo/vector-icons'
+import {Feather, MaterialCommunityIcons, Ionicons} from '@expo/vector-icons'
 import CustomListItem from '../components/CustomListItem'
 import styled from 'styled-components/native';
 // import { ScrollView } from 'react-native-gesture-handler'
@@ -83,7 +83,7 @@ const HomeScreen = ({navigation}) => {
           <View style={styles.card}>
             <View style={styles.cardTop}>
               <View style={{flexDirection: 'row', marginBottom: '5%'}}>
-                <Ionicons name='calendar-outline' size={24} color='#000000' />
+                <Ionicons name='calendar-outline' size={24} color='#311E15' />
                 <Text style={{marginLeft: '5%', color: '#311E15', fontSize: 20, fontWeight: 'bold'}}>
                   {days[today.getDay()]}
                 </Text>
@@ -92,23 +92,24 @@ const HomeScreen = ({navigation}) => {
                 </Text>
               </View>
               <View style={{flexDirection: 'row'}}>
-                <Text style={{color: '#000000', fontWeight: '700', fontSize: 18 }}>
+                <Text style={{color: '#311E15', fontWeight: '700', fontSize: 18 }}>
                   Total Entries Today
                 </Text>
-                <Ionicons name='people' size={24} color='#000000' style={{marginLeft: '2%'}}/>
+                <Ionicons name='people' size={24} color='#311E15' style={{marginLeft: '2%'}}/>
 
                 {/* <Text style={{marginLeft: 5, color: '#000000', fontSize: 20 }}>
                   :
                 </Text> */}
               </View>
-              <Text h3 style={{color: '#000000'}}>
+              <Text h3 style={{color: '#311E15'}}>
                 {totalBalance}
               </Text>
             </View>
           </View>
           <View style={styles.recentTitle}>
-            <Text  style={{color: '#000000', fontSize: 18}}>
-              Recent Entries : 
+            <Text  style={{color: '#311E15', fontSize: 18, fontWeight: '500'}}>
+            {/* 🧑‍🏫️ */}
+              Recent Entries 🧑‍🤝‍🧑️: 
             </Text>
           </View>
         {filter?.length > 0 ? (
@@ -128,8 +129,8 @@ const HomeScreen = ({navigation}) => {
         </SafeAreaView>
         ) : (
           <View style={styles.containerNull}>
-          <Ionicons name='ios-wallet' size={24} color='#000000' />
-            <Text h5 style={{color: '#000000'}}>
+          <Ionicons name='people' size={24} color='#311E15' />
+            <Text h5 style={{color: '#311E15'}}>
               No Entries
             </Text>
           </View>
@@ -158,7 +159,9 @@ const HomeScreen = ({navigation}) => {
               onPress={() => navigation.navigate('QRScan')}
               activeOpacity={0.5}
             >
-            <Ionicons name='md-qr-code-outline' size={32} color='#FFFFFF' />
+            <MaterialCommunityIcons name="qrcode-scan" size={32} color="#FFFFFF" />
+            {/* <Ionicons name='md-qr-code-outline' size={32} color='#FFFFFF' /> */}
+            {/* <Ionicons name='md-qr-code-outline' size={32} color='#FFFFFF' /> */}
           </TouchableOpacity>
         </View>
       </MainContainer>
@@ -266,7 +269,7 @@ const styles = StyleSheet.create({
   },
 
   plusButton: {
-    backgroundColor: '#8B6C5B',
+    backgroundColor: '#4A2511',
     padding: 20,
     height: 75,
     width: 75,
