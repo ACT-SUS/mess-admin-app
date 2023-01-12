@@ -38,7 +38,8 @@ export default function QRScanner() {
 
   return (
     <View style={styles.container}>
-      <Text style={{marginTop: '25%', alignSelf: 'center', color: 'green', fontSize: 18}} color='black'> Scanning the QR Code . . . </Text>
+      <Text style={{marginTop: '25%', alignSelf: 'center', color: '#311E15', fontSize: 20}} color='black'> PLease Wait! </Text>
+      <Text style={{marginTop: '5%', alignSelf: 'center', color: '#311E15', fontSize: 20}} color='black'> Scanning the QR Code . . . </Text>
       <BarCodeScanner
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
         style={{height: '70%', width: '75%', flex: 1, left: '12.5%', marginTop: '-20%'}}
@@ -78,6 +79,7 @@ export default function QRScanner() {
             qrData: qrData
           })}
       {error && navigation.goBack()}
+      
     </View>
   );
 }

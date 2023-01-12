@@ -83,20 +83,23 @@ const HomeScreen = ({navigation}) => {
           <View style={styles.card}>
             <View style={styles.cardTop}>
               <View style={{flexDirection: 'row', marginBottom: '5%'}}>
-                <Text style={{color: '#311E15', fontSize: 20}}>
+                <Ionicons name='calendar-outline' size={24} color='#000000' />
+                <Text style={{marginLeft: '5%', color: '#311E15', fontSize: 20, fontWeight: 'bold'}}>
                   {days[today.getDay()]}
                 </Text>
-                <Text style={{marginLeft: '10%', color: '#311E15', fontSize: 20}}>
+                <Text style={{marginLeft: '5%', color: '#311E15', fontSize: 20}}>
                   {date}
                 </Text>
               </View>
               <View style={{flexDirection: 'row'}}>
                 <Text style={{color: '#000000', fontWeight: '700', fontSize: 18 }}>
-                  Total Entries
+                  Total Entries Today
                 </Text>
-                <Text style={{marginLeft: 5, color: '#000000', fontSize: 20 }}>
-                  ^
-                </Text>
+                <Ionicons name='people' size={24} color='#000000' style={{marginLeft: '2%'}}/>
+
+                {/* <Text style={{marginLeft: 5, color: '#000000', fontSize: 20 }}>
+                  :
+                </Text> */}
               </View>
               <Text h3 style={{color: '#000000'}}>
                 {totalBalance}
