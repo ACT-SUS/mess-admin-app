@@ -5,27 +5,10 @@ import { StatusBar } from 'expo-status-bar'
 import { Feather, MaterialCommunityIcons, Ionicons } from '@expo/vector-icons'
 import CustomListItem from '../components/CustomListItem'
 import styled from 'styled-components/native';
-// import { ScrollView } from 'react-native-gesture-handler'
+import axios from 'axios';
 
 const HomeScreen = ({ route, navigation }) => {
     const [flagModal, setFlagModal] = useState(false);
-    // // transactions
-    // const [transactions, setTransactions] = useState([])
-    // useEffect(() => {
-    //   const unsubscribe = db
-    //     .collection('expense')
-    //     .orderBy('timestamp', 'desc')
-    //     .onSnapshot(
-    //       (snapshot) =>
-    //         setTransactions(
-    //           snapshot.docs.map((doc) => ({
-    //             id: doc.id,
-    //             data: doc.data(),
-    //           }))
-    //         ) 
-    //     )
-    //   return unsubscribe
-    // }, [])
 
     const [totalBalance, setTotalBalance] = useState(0)
     const [confirm, setConfirm] = useState(false)
@@ -60,6 +43,25 @@ const HomeScreen = ({ route, navigation }) => {
     width: 100%;
     border-radius: 10;
   `;
+
+    useEffect(() => {
+        (async () => {
+            const data = await axios.get('http://192.168.220.59:5000/api/entry/today')
+            console.log(data.data.entries);
+            setFilter(() => {
+                return data.data.entries.map((entry,idx) => {
+                    return {
+                        'id':idx+1,
+                        'data' :entry['name'],
+                        'rollno':entry['id'],
+                        'time':entry['time']
+                    }
+                })
+            })
+            // { id: '1', data: 'Saurabh Powar', rollno: '191060053', time: '14:23' },
+
+        })()
+    }, [])
 
 
     useEffect(() => {
@@ -123,7 +125,7 @@ const HomeScreen = ({ route, navigation }) => {
                 </Text> */}
                         </View>
                         <Text h3 style={{ color: '#311E15' }}>
-                            {totalBalance}
+                            {filter.length}
                         </Text>
                     </View>
                 </View>
@@ -133,12 +135,23 @@ const HomeScreen = ({ route, navigation }) => {
                     visible={flagModal}
 
                 >
-                    <View style={styles.centeredViewNew}>
-                        <View style={styles.modalViewNew}>
-                            <Text style={{ fontSize: 14, fontWeight: 'bold', textAlign: 'center', color: 'red' }}>
-                                ❌️  Scan Failed, Not Valid Member!
+                    <View style={styles.centeredViewNew1}>
+                        <View style={styles.modalViewNew1}>
+                            <Image
+                                style={{
+                                    width: 75,
+                                    height: 75,
+                                    alignSelf: 'center',
+                                    resizeMode: 'contain'
+                                }}
+                                source={require('../assets/alert.png')}
+                            />
+                            <Text style={{ fontSize: 16, fontWeight: 'bold', textAlign: 'center', color: '#311E15' }}>
+                                Scan unsuccessful! 🥲️
                             </Text>
-                            {/* onPress={() => setShowModal(false)} */}
+                            <Text style={{ fontSize: 16, fontWeight: 'bold', textAlign: 'center', color: 'red', margin: 5 }}>
+                                Invalid Mess ID ❌️
+                            </Text>
                         </View>
                     </View>
                 </Modal>
@@ -172,7 +185,7 @@ const HomeScreen = ({ route, navigation }) => {
                     </View>
                 )}
                 {/* </View> */}
-                <View style={styles.addButton}>
+                <View style={styles.qrButton}>
                     <TouchableOpacity
                         style={{ marginLeft: '-10%' }}
                         activeOpacity={0.5}
@@ -207,17 +220,22 @@ const HomeScreen = ({ route, navigation }) => {
 export default HomeScreen
 
 const styles = StyleSheet.create({
-    centeredViewNew: {
+    centeredViewNew1: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: '10%'
     },
-    modalViewNew: {
-        backgroundColor: '#FFFFFF',
+    modalViewNew1: {
+        backgroundColor: '#FFF',
         borderRadius: 5,
         padding: 10,
-        width: '80%'
+        width: '70%',
+        elevation: 50,
+        shadowColor: '#AAA',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.5,
+        shadowRadius: 2,
     },
     container: {
         backgroundColor: 'white',
@@ -285,15 +303,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         width: '100%'
     },
-
-    seeAll: {
-        fontWeight: 'bold',
-        color: '#ECC2FF',
-        fontSize: 14,
-        marginLeft: '30%'
-    },
-
-    addButton: {
+    qrButton: {
         position: 'absolute',
         bottom: 0,
         padding: 10,
