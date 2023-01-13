@@ -46,7 +46,7 @@ const HomeScreen = ({ route, navigation }) => {
 
     useEffect(() => {
         (async () => {
-            const data = await axios.get('http://192.168.220.59:5000/api/entry/today')
+            const data = await axios.get('http://192.168.5.125:5000/api/entry/today')
             console.log(data.data.entries);
             setFilter(() => {
                 return data.data.entries.map((entry,idx) => {

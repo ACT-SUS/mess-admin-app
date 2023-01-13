@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, View, TouchableOpacity, KeyboardAvoidingView, StatusBar, TextInput, Image, Keyboard, Modal } from 'react-native';
 import styled from 'styled-components/native';
-import { Feather, Ionicons } from '@expo/vector-icons'
+import { AntDesign, Ionicons } from '@expo/vector-icons'
 import { Text, Button } from 'react-native-elements'
 import CounterInput from "react-native-counter-input";
 import { Avatar } from "react-native-paper";
+import axios from 'axios';
+import { gu } from 'date-fns/locale';
 
 export default function Details({ route, navigation }) {
   const { qrData, success } = route.params;
   const [flagModal, setFlagModal] = useState(false);
+  const [guests, setGuests] = useState(0);
+  const [entryModal, setEntryModal] = useState(false);
+  const [entryAdded, setEntryAdded] = useState(false);
   const MainContainer = styled.View`
   background-color: white;
   height: 100%;
@@ -21,7 +26,6 @@ export default function Details({ route, navigation }) {
   width: 100%;
 `;
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
-  const [guests, setGuests] = useState(0);
   const [amount, setAmount] = useState(0);
 
   useEffect(() => {
@@ -32,6 +36,33 @@ export default function Details({ route, navigation }) {
       }, 2000)
     }
   }, [])
+
+  useEffect(() => {
+    if (entryAdded) {
+      setEntryModal(true);
+      setTimeout(() => {
+        setEntryModal(false);
+      }, 2000)
+    }
+  }, [])
+
+  const onAddDetails = () => {
+    console.log("In Add Details");
+    axios.post('http://192.168.5.125:5000/api/entry/create', {
+      name: qrData.split(' ')[0] + " " + qrData.split(' ')[1],
+      id: qrData.split(' ')[2],
+      numberOfGuests: guests,
+      extraFood: amount,
+    })
+    .then(function (response) {
+      console.log(response);
+      setEntryModal(true);
+      navigation.navigate('Home');
+  })
+    .catch(function (error) {
+        console.log(error);
+    });
+  }
 
   return (
     <View>
@@ -60,6 +91,20 @@ export default function Details({ route, navigation }) {
         >
           <View style={styles.centeredViewNew1}>
             <View style={styles.modalViewNew1}>
+              <AntDesign name="checkcircle" size={34} color="green" style={{alignSelf: 'center'}}/>              
+              <Text style={{ fontSize: 16, fontWeight: 'bold', textAlign: 'center', color: 'green', margin: 5 }}>
+                Valid Mess ID 🧑‍🏫️
+              </Text>
+            </View>
+          </View>
+        </Modal>
+        <Modal
+          animationType='slide'
+          transparent={true}
+          visible={entryModal}
+        >
+          <View style={styles.centeredViewNew1}>
+            <View style={styles.modalViewNew1}>
               <Image
                 style={{
                   width: 75,
@@ -69,11 +114,8 @@ export default function Details({ route, navigation }) {
                 }}
                 source={require('../assets/check.png')}
               />
-              <Text style={{ fontSize: 16, fontWeight: 'bold', textAlign: 'center', color: '#311E15' }}>
-                Scan successful! 🥳️
-              </Text>
-              <Text style={{ fontSize: 16, fontWeight: 'bold', textAlign: 'center', color: 'green', margin: 5 }}>
-                Valid Mess ID 🧑‍🏫️
+              <Text style={{ fontSize: 16, fontWeight: 'bold', textAlign: 'center', color: '#311E15', margin: 10 }}>
+                Entry Added successfully! 🥳️
               </Text>
             </View>
           </View>
@@ -120,15 +162,14 @@ export default function Details({ route, navigation }) {
               NO. OF GUESTS (if any)
             </Text>
             <CounterInput
-              style={{ marginTop: '5%', marginLeft: '5%', width: '90%' }}
+              style={{ marginTop: '5%', marginLeft: '5%', width: '75%', alignSelf: 'center' }}
               horizontal={true}
-              increaseButtonBackgroundColor={'#311E15'}
-              decreaseButtonBackgroundColor={'#311E15'}
-              min={0}
-              onChange={(counter) => {
-                setGuests(counter);
-              }}
-            />
+              increaseButtonBackgroundColor={"#311E15"}
+              decreaseButtonBackgroundColor={"#311E15"}
+              minValue={0}
+              maxValue={7}
+              value={guests}
+              onChange={(value) => setGuests(value)} />
             <Text
               style={{
                 color: '#F3DACC',
@@ -144,7 +185,7 @@ export default function Details({ route, navigation }) {
               keyboardType='numeric'
               placeholder='0'
               placeholderTextColor={'#FFFFFF'}
-              value={0}
+              value={amount}
               defaultValue={0}
               onChangeText={(text) => setAmount(text)}
             />
@@ -154,7 +195,7 @@ export default function Details({ route, navigation }) {
           <Button
             buttonStyle={styles.add}
             title='Add'
-            onPress={() => { }}
+            onPress={(event) => onAddDetails()}
           // loading={submitLoading}
           />
           <Button
@@ -182,7 +223,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderRadius: 5,
     padding: 10,
-    width: '70%',
+    width: '75%',
     elevation: 50,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
