@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "VJTI Mess",
+    "slug": "VJTIMess",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/mess_admin.png",
+    "splash": {
+      "image": "./assets/mess_admin.png",
+      "resizeMode": "contain",
+      "backgroundColor": "white"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.saurabh5.VJTIMess"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/mess_admin.png",
+        "backgroundColor": "#000000"
+      },
+      "permissions": [ "CAMERA"],
+      "package": "com.saurabh5.VJTIMess"
+    }
+  }
+}
