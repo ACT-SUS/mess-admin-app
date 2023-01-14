@@ -8,50 +8,39 @@ import {Text} from 'react-native-elements'
 import {FontAwesome5, Ionicons} from '@expo/vector-icons'
 import styled from 'styled-components/native';
 import axios from 'axios'
+import { host } from "../ip";
 
 const AllTransactions = ({navigation}) => {
+
+  const [loading, setLoading] = useState(false);
+
   useLayoutEffect(() => {
     navigation.setOptions({
       title: 'All Entries',
     })
   }, [])
-  // const [transactions, setTransactions] = useState([])
-  // useEffect(() => {
-  //   const unsubscribe = db
-  //     .collection('expense')
-  //     .orderBy('timestamp', 'desc')
-  //     .onSnapshot((snapshot) =>
-  //       setTransactions(
-  //         snapshot.docs.map((doc) => ({
-  //           id: doc.id,
-  //           data: doc.data(),
-  //         }))
-  //       )
-  //     )
-
-  //   return unsubscribe
-  // }, [])
+  
   const [filter, setFilter] = useState([
     {id: '1', data: 'Saurabh Powar', rollno: '191060053', time: '14:23'}, 
-    {id: '2', data: 'Saurabh Powar', rollno: '191060058', time: '12:40'}
+    {id: '2', data: 'Utsav Khatu', rollno: '191060058', time: '12:40'}
   ])
 
   useEffect(() => {
         (async () => {
-            const data = await axios.get('http://localhost:5000/api/entry/today')
+            setLoading(true)
+            const data = await axios.get(`${host}/api/entry/today`)
             console.log(data.data.entries);
             setFilter(() => {
                 return data.data.entries.map((entry,idx) => {
                     return {
                         'id':idx+1,
                         'data' :entry['name'],
-                        'rollno':entry['id'],
+                        'rollno':entry['sid'],
                         'time':entry['time']
                     }
                 })
             })
-            // { id: '1', data: 'Saurabh Powar', rollno: '191060053', time: '14:23' },
-
+            setLoading(false)
         })()
     }, [])
 

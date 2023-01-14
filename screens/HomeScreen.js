@@ -6,6 +6,7 @@ import { Feather, MaterialCommunityIcons, Ionicons } from '@expo/vector-icons'
 import CustomListItem from '../components/CustomListItem'
 import styled from 'styled-components/native';
 import axios from 'axios';
+import { host } from "../ip";
 
 const HomeScreen = ({ route, navigation }) => {
     const [flagModal, setFlagModal] = useState(false);
@@ -15,8 +16,8 @@ const HomeScreen = ({ route, navigation }) => {
     const [reset, setReset] = useState(false)
 
     const [filter, setFilter] = useState([
-        { id: '1', data: 'Saurabh Powar', rollno: '191060053', time: '14:23' },
-        { id: '2', data: 'Saurabh Powar', rollno: '191060058', time: '12:40' }
+        // { id: '1', data: 'Saurabh Powar', rollno: '191060053', time: '14:23' },
+        // { id: '2', data: 'Saurabh Powar', rollno: '191060058', time: '12:40' }
     ])
 
     const [date, setDate] = useState(null);
@@ -29,7 +30,7 @@ const HomeScreen = ({ route, navigation }) => {
     useEffect(() => {
         let date = today.getDate() + ' ' + (months[today.getMonth() + 1]) + ' ' + today.getFullYear();
         setDate(date);
-    }, []);
+    }, []); 
 
     const MainContainer = styled.View`
     background-color: white;
@@ -46,14 +47,14 @@ const HomeScreen = ({ route, navigation }) => {
 
     useEffect(() => {
         (async () => {
-            const data = await axios.get('http://192.168.5.125:5000/api/entry/today')
+            const data = await axios.get(`${host}/api/entry/today`)
             console.log(data.data.entries);
             setFilter(() => {
                 return data.data.entries.map((entry,idx) => {
                     return {
                         'id':idx+1,
                         'data' :entry['name'],
-                        'rollno':entry['id'],
+                        'rollno':entry['sid'],
                         'time':entry['time']
                     }
                 })
@@ -163,7 +164,7 @@ const HomeScreen = ({ route, navigation }) => {
                 </View>
                 {filter?.length > 0 ? (
                     <SafeAreaView style={styles.containerScroll}>
-                        <ScrollView>
+                        <ScrollView style={{marginBottom:'10%'}}>
                             {filter?.map((info) => (
                                 <View key={info.id}>
                                     <CustomListItem
@@ -395,7 +396,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         padding: 0,
         height: '100%',
-        flex: 1
+        flex: 1,
+        maxHeight: 300
     }
 })
 

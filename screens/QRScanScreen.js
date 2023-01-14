@@ -20,8 +20,9 @@ export default function QRScanner() {
 
     const handleBarCodeScanned = ({ type, data }) => {
         setScanned(true);
-        console.log(data);
-        data?.split(' ')[2]?.length == 9 ? setSuccess(true) : setError(true);
+        console.log(data.split(' ')[3]);
+        // data?.split(' ')[2]?.length == 9 ? setSuccess(true) : setError(true);
+        setSuccess(true)
         setqrData(data);
         setTimeout(() => { setSuccess(false) }, 3000);
         setTimeout(() => { setError(false); }, 5000);

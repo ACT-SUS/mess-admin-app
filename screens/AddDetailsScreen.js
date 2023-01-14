@@ -7,6 +7,9 @@ import CounterInput from "react-native-counter-input";
 import { Avatar } from "react-native-paper";
 import axios from 'axios';
 import { gu } from 'date-fns/locale';
+import { host } from "../ip";
+import NumericInput from 'react-native-numeric-input'
+import Icon from 'react-native-vector-icons/Ionicons'
 
 export default function Details({ route, navigation }) {
   const { qrData, success } = route.params;
@@ -48,9 +51,10 @@ export default function Details({ route, navigation }) {
 
   const onAddDetails = () => {
     console.log("In Add Details");
-    axios.post('http://192.168.5.125:5000/api/entry/create', {
+    console.log(guests, amount)
+    axios.post(`${host}/api/entry/create`, {
       name: qrData.split(' ')[0] + " " + qrData.split(' ')[1],
-      id: qrData.split(' ')[2],
+      sid: qrData.split(' ')[2],
       numberOfGuests: guests,
       extraFood: amount,
     })
@@ -169,7 +173,7 @@ export default function Details({ route, navigation }) {
               minValue={0}
               maxValue={7}
               value={guests}
-              onChange={(value) => setGuests(value)} />
+              onValueChange={(value) => setGuests(value)} />
             <Text
               style={{
                 color: '#F3DACC',
@@ -182,7 +186,7 @@ export default function Details({ route, navigation }) {
             </Text>
             <TextInput
               style={styles.inputBox}
-              keyboardType='numeric'
+              keyboardType='default'
               placeholder='0'
               placeholderTextColor={'#FFFFFF'}
               value={amount}
