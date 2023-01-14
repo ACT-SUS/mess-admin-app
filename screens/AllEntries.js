@@ -7,6 +7,7 @@ import CustomListItem from '../components/CustomListItem'
 import {Text} from 'react-native-elements'
 import {FontAwesome5, Ionicons} from '@expo/vector-icons'
 import styled from 'styled-components/native';
+import axios from 'axios'
 
 const AllTransactions = ({navigation}) => {
   useLayoutEffect(() => {
@@ -34,15 +35,25 @@ const AllTransactions = ({navigation}) => {
     {id: '1', data: 'Saurabh Powar', rollno: '191060053', time: '14:23'}, 
     {id: '2', data: 'Saurabh Powar', rollno: '191060058', time: '12:40'}
   ])
-  // useEffect(() => {
-  //   if (transactions) {
-  //     setFilter(
-  //       transactions.filter(
-  //         (transaction) => transaction.data.email === auth.currentUser.email
-  //       )
-  //     )
-  //   }
-  // }, [transactions])
+
+  useEffect(() => {
+        (async () => {
+            const data = await axios.get('http://localhost:5000/api/entry/today')
+            console.log(data.data.entries);
+            setFilter(() => {
+                return data.data.entries.map((entry,idx) => {
+                    return {
+                        'id':idx+1,
+                        'data' :entry['name'],
+                        'rollno':entry['id'],
+                        'time':entry['time']
+                    }
+                })
+            })
+            // { id: '1', data: 'Saurabh Powar', rollno: '191060053', time: '14:23' },
+
+        })()
+    }, [])
 
   const MainContainer = styled.View`
     background-color: 'white';

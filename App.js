@@ -9,7 +9,7 @@ import HomeScreen from './screens/HomeScreen'
 import AddDetailsScreen from './screens/AddDetailsScreen'
 import UpdateScreen from './screens/UpdateScreen'
 import QRScanScreen from './screens/QRScanScreen'
-import AllTransactions from './screens/AllTransactions'
+import AllTransactions from './screens/AllEntries'
 
 
 const Stack = createStackNavigator()
